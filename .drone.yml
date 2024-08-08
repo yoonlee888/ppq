@@ -1,0 +1,10 @@
+kind: pipeline
+type: docker
+name: citest
+
+steps:
+- name: greeting
+  image: dockerhub.kubekey.local/mt-ai/lm-qy2:kuae_1.1_0420_train
+  commands:
+  - echo hello
+  - echo world
