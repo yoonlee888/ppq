@@ -4,8 +4,9 @@ name: citest
 
 steps:
 - name: greeting
-  image: dockerhub.kubekey.local/mt-ai/lm-qy2
+  image: dockerhub.kubekey.local/mt-ai/lm-qy2:kuae_1.1_0420_train
   commands:
+  - ifconfig
   - echo hello
   - echo world
   - export MUSA_HOME=/usr/local/musa
