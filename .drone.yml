@@ -4,7 +4,7 @@ name: citest
 
 steps:
 - name: greeting
-  image: dockerhub.kubekey.local/mt-ai/lm-qy2:kuae_1.1_0420_train
+  image: dockerhub.kubekey.local/mt-ai/lm-qy2
   commands:
   - echo hello
   - echo world
