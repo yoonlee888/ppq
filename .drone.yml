@@ -8,9 +8,9 @@ steps:
   pull: if-not-exists
   image: dockerhub.kubekey.local/mt-ai/lm-qy2:kuae_1.1_0420_train
   commands:
-  - sleep 1000
   - /bin/bash
   - which python
+  - sleep 100
   - ifconfig
   - echo hello
   - echo world
