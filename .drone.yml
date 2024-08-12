@@ -8,3 +8,12 @@ steps:
   commands:
   - echo hello
   - echo world
+  - export MUSA_HOME=/usr/local/musa
+  - export LD_LIBRARY_PATH=$MUSA_HOME/lib:$LD_LIBRARY_PATH
+  - export USE_MUSA=1
+  - export USE_CUDA=0
+  - export USE_KLX=0
+  - export CMAKE_BUILD_TYPE=Debug
+  - python setup.py clean
+  - python setup.py -pre
+  - python setup.py install
