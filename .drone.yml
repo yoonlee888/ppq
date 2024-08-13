@@ -8,4 +8,5 @@ steps:
   pull: if-not-exists
   image: dockerhub.kubekey.local/mt-ai/lm-qy2:kuae_1.1_0420_train
   commands:
+  - sleep 1000
   - docker ps -a
