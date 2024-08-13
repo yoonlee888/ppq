@@ -11,7 +11,7 @@ steps:
     path: /var/run/docker.sock
   commands:
   - docker ps -a
-  - docker run --net host --rm --privileged --shm-size 100g --ulimit memlock=-1 --env MTHREADS_VISIBLE_DEVICES=all --pid=host -v /drone/src:/data/qiuyunlei --name test_ci1 dockerhub.kubekey.local/mt-ai/lm-qy2:add_sh sh -c "/data/ci/af_build.sh"
+  - docker run --net host --rm --privileged --shm-size 100g --ulimit memlock=-1 --env MTHREADS_VISIBLE_DEVICES=all --pid=host -v /drone/src:/data/qiuyunlei --name test_ci12 dockerhub.kubekey.local/mt-ai/lm-qy2:add_sh sh -c "/data/ci/af_build.sh"
 
 
 volumes:
