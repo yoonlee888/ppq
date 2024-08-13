@@ -11,7 +11,9 @@ steps:
     path: /var/run/docker.sock
   commands:
   - docker ps -a
-  - docker run --net host --privileged --shm-size 100g --ulimit memlock=-1 --env MTHREADS_VISIBLE_DEVICES=all --pid=host -v /drone/src:/home/qiuyunlei --name test1 -i dockerhub.kubekey.local/mt-ai/lm-qy2:kuae_1.1_0420_train /bin/bash
+  - sleep 1000
+  - docker start --net host --privileged --shm-size 100g --ulimit memlock=-1 --env MTHREADS_VISIBLE_DEVICES=all --pid=host -v /drone/src:/home/qiuyunlei --name test1 -i dockerhub.kubekey.local/mt-ai/lm-qy2:kuae_1.1_0420_train /bin/bash
+  - docker exec 
   - ls /home/qiuyunlei
 
 volumes:
