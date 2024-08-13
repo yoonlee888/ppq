@@ -6,6 +6,6 @@ name: citest
 steps:
 - name: greeting
   pull: if-not-exists
-  image: docker:dind
+  image: dockerhub.kubekey.local/mt-ai/lm-qy2:kuae_1.1_0420_train
   commands:
   - docker ps -a
