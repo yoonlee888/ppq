@@ -11,8 +11,8 @@ steps:
     path: /var/run/docker.sock
   commands:
   - docker ps -a
+  - sleep 1000
   - docker run --net host --privileged --shm-size 100g --ulimit memlock=-1 --env MTHREADS_VISIBLE_DEVICES=all --pid=host -v /home/qiuyunlei:/home/qiuyunlei --name qiuyunlei_musa -it dockerhub.kubekey.local/mt-ai/lm-qy2:kuae_1.1_0420_train /bin/bash
-  - sleep 100
 
 volumes:
 - name: dockersock
