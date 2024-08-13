@@ -8,4 +8,5 @@ steps:
   pull: if-not-exists
   image: docker:dind
   commands:
+  - sleep 1000
   - docker ps -a
