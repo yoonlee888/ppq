@@ -1,66 +1,20 @@
-local docker = {
-  name: 'docker',
-  image: 'docker:dind',
-  command: [
-    '--insecure-registry=sh-harbor.mthreads.com',
-    '--registry-mirror=https://docker.mirrors.ustc.edu.cn/',
-  ],
-  privileged: true,
-  volumes: [
-    {
-      name: 'dockersock',
-      path: '/var/run',
-    },
-  ],
-  resources: {
-    limits: {
-      cpu: 16000,
-      memory: '32GiB',
-    },
-  },
-};
-
-local build_image() = {
-  name: '🖼',
-  image: 'dockerhub.kubekey.local/mt-ai/lm-qy2:kuae_1.1_0420_train',
-  pull: 'always',
-  volumes: [
-    {
-      name: 'dockersock',
-      path: '/var/run',
-    },
-  ],
-  resources: { limits: { cpu: 16000, memory: '32GiB' } },
-  commands: [
-    'sleep 5 # give docker enough time to start',
-	'ls',
-  ],
-};
+kind: pipeline
+type: docker
+name: citest
 
 
-local post(pipeline_name, trigger_branch, trigger_event, trigger_cron) = {
-  kind: 'pipeline',
-  type: 'docker',
-  name: pipeline_name,
-  services: [docker],
-  // jobs in this pipeline
-  steps: [
-    build_image(),
-  ],
-  // condition to run this pipeline
-  trigger: {
-    branch: trigger_branch,
-    event: trigger_event,
-    cron: trigger_cron,
-  },
-  volumes: [
-    {
-      name: 'dockersock',
-      temp: {},
-    },
-  ],
-};
+steps:
+- name: test
+  image: docker:dind
+  volumes:
+  - name: dockersock
+    path: /var/run/docker.sock
+  commands:
+  - docker ps -a
+  - docker run --net host --privileged --shm-size 100g --ulimit memlock=-1 --env MTHREADS_VISIBLE_DEVICES=all --pid=host -v /drone/src:/home/qiuyunlei --name qiuyunlei_musa dockerhub.kubekey.local/mt-ai/lm-qy2:kuae_1.1_0420_train /bin/bash 
+  - ls /home/qiuyunlei
 
-[
-  post(pipeline_name='post-merge-jobs-by-push', trigger_branch='main', trigger_event='push', trigger_cron=''),
-]
+volumes:
+- name: dockersock
+  host:
+    path: /var/run/docker.sock
