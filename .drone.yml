@@ -9,8 +9,6 @@ steps:
   volumes:
   - name: dockersock
     path: /var/run/docker.sock
-  - name: codebase
-    path: /drone/src
   commands:
   - docker ps -a
   - sleep 1000
@@ -21,6 +19,3 @@ volumes:
 - name: dockersock
   host:
     path: /var/run/docker.sock
-- name: codebase
-  host:
-    path: /home/codebase
