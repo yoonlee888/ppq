@@ -9,9 +9,12 @@ steps:
   volumes:
   - name: dockersock
     path: /var/run/docker.sock
+  - name: codesync
+    path: /drone/sync
   commands:
-  - docker ps -a
   - sleep 1000
+  - cp -rf /drone/src /drone/sync
+  - docker ps -a
   - docker run --net host --rm --privileged --shm-size 100g --ulimit memlock=-1 --env MTHREADS_VISIBLE_DEVICES=all --pid=host -v /drone/src:/data/qiuyunlei --name test_ci12 dockerhub.kubekey.local/mt-ai/lm-qy2:add_sh sh -c "bash /data/ci/af_build.sh"
 
 
@@ -19,3 +22,6 @@ volumes:
 - name: dockersock
   host:
     path: /var/run/docker.sock
+- name: codesync
+  host:
+    path: /drone/src
